@@ -1,136 +1,141 @@
 <html>
-  <head>
-    <title>Bongkar API BMKG-Signature</title>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <title>Bongkar API BMKG-Signature</title>
 
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-      crossorigin=""
-    />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/css/bootstrap.min.css"
-      integrity="sha512-aqT9YD5gLuLBr6ipQAS+72o5yHKzgZbGxEh6iY8lW/r6gG14e2kBTAJb8XrxzZrMOgSmDqtLaF76T0Z6YY2IHg=="
-      crossorigin="anonymous"
-    />
-  </head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
 
-  <body>
-    <div class="row">
-      <div class="col-md-3">
-        <div class="container-fluid mt-4">
-          <div class="d-flex flex-column position-relative bd-highlight">
-            <div class="bd-highlight">
-              <h4>Info Prediksi Cuaca Harian</h4>
-              <hr />
-              <div class="alert alert-info">
-                Info Prediksi Cuaca Harian ini berlaku untuk <span class="tanggal"></span>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/css/bootstrap.min.css"
+    integrity="sha512-aqT9YD5gLuLBr6ipQAS+72o5yHKzgZbGxEh6iY8lW/r6gG14e2kBTAJb8XrxzZrMOgSmDqtLaF76T0Z6YY2IHg=="
+    crossorigin="anonymous" />
+</head>
+
+<body>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="container-fluid mt-4">
+        <div class="d-flex flex-column position-relative bd-highlight">
+          <div class="bd-highlight">
+            <h4>Info Prediksi Cuaca Harian</h4>
+            <hr />
+            <div class="alert alert-info">
+              Info Prediksi Cuaca Harian ini berlaku untuk <span class="tanggal"></span>
+            </div>
+          </div>
+          <div class="bottom-0 bd-highlight">
+            Provinsi Terdampak
+            <div class="card bg-success">
+              <div class="card-body prov-list">
+
               </div>
             </div>
-            <div class="bottom-0 bd-highlight">Flex item</div>
           </div>
         </div>
       </div>
-      <div class="col-md-9">
-        <div id="mapid" style="height: 98vh; width: 100%"></div>
-      </div>
     </div>
+    <div class="col-md-9">
+      <div id="mapid" style="height: 98vh; width: 100%"></div>
+    </div>
+  </div>
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-      crossorigin="anonymous"
-    ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous"></script>
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/js/bootstrap.min.js"
-      integrity="sha512-7PEMaoHJNQoEqpxgkKskoXpEglioEnKlfCMcYVmml8yJjmBG7twaBmnI+PLU0cNTw2VWhizJYUG1kmSzRDo1tw=="
-      crossorigin="anonymous"
-    ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/js/bootstrap.min.js"
+    integrity="sha512-7PEMaoHJNQoEqpxgkKskoXpEglioEnKlfCMcYVmml8yJjmBG7twaBmnI+PLU0cNTw2VWhizJYUG1kmSzRDo1tw=="
+    crossorigin="anonymous"></script>
 
-    <script
-      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-      crossorigin=""
-    ></script>
-    <script
-      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-      crossorigin=""
-    ></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
 
-    <script src="./leaflet/leaflet.ajax.min.js"></script>
-    <script src="./leaflet/leaflet.provider.js"></script>
+  <script src="./leaflet/leaflet.ajax.min.js"></script>
+  <script src="./leaflet/leaflet.provider.js"></script>
 
-    <script>
-      function init_map() {
-        let map = L.map("mapid").setView([-1.2828926, 119.1433416], 5);
+  <script>
+    function init_map() {
+      let map = L.map("mapid").setView([-1.2828926, 119.1433416], 5);
 
-        //Siapin variable besok
-        let date = new Date();
-        // Add a day
-        let besok = date.setDate(date.getDate() + 1);
-        besok = date.toISOString().split('T')[0]+"T00:00:00.000Z";
-        
+      //Siapin variable besok
+      let date = new Date();
+      // Add a day
+      let besok = date.setDate(date.getDate() + 1);
+      besok = date.toISOString().split('T')[0] + "T00:00:00.000Z";
 
-        L.tileLayer.provider("Stadia.AlidadeSmoothDark").addTo(map);
+      let list = [];
 
-        function setWarna(cat) {
-          let warna, style;
-          cat = parseInt(cat);
-          //console.log("Cate :" + cat)
 
-          if (cat == 10) {
-            warna = "#db0000";
-          } else if (cat > 5) {
-            warna = "#f09835";
-          } else if (cat > 0) {
-            warna = "#fff157";
-          }
+      L.tileLayer.provider("Stadia.AlidadeSmoothDark").addTo(map);
 
-          // console.log(warna);
+      function setWarna(cat) {
+        let warna, style;
+        cat = parseInt(cat);
+        //console.log("Cate :" + cat)
 
-          style = {
-            color: warna,
-            weight: 0,
-            opacity: 0.7,
-            fillOpacity: 0.7,
-          };
-
-          return style;
+        if (cat == 10) {
+          warna = "#db0000";
+        } else if (cat > 5) {
+          warna = "#f09835";
+        } else if (cat > 0) {
+          warna = "#fff157";
         }
 
-        var geojsonLayer = new L.GeoJSON.AJAX(
-          "http://localhost/bmkg/api_signature.php?tgl="+besok,
-          {
-            style: function (feature) {
-              let category = feature.properties.category;
-              return setWarna(category);
-            },
-            onEachFeature: function (feature, layer) {
-              let html = layer.bindPopup(
-                "<pre>" +
-                  JSON.stringify(feature.properties, null, " ").replace(
-                    /[\{\}"]/g,
-                    ""
-                  ) +
-                  "</pre>"
-              );
-            },
-          }
-        );
+        // console.log(warna);
 
-        geojsonLayer.addTo(map);
+        style = {
+          color: warna,
+          weight: 0,
+          opacity: 0.7,
+          fillOpacity: 0.7,
+        };
 
-        $(".tanggal").html("tanggal "+besok);
+        return style;
       }
 
-      init_map();
-    </script>
-  </body>
+      var geojsonLayer = new L.GeoJSON.AJAX(
+        "http://localhost/api-signature/api_signature.php?tgl=" + besok,
+        {
+          style: function (feature) {
+            let category = feature.properties.category;
+            return setWarna(category);
+          },
+          onEachFeature: function (feature, layer) {
+            let html = layer.bindPopup(
+              "<pre>" +
+              JSON.stringify(feature.properties, null, " ").replace(
+                /[\{\}"]/g,
+                ""
+              ) +
+              "</pre>"
+            );
+
+            list.push({
+              prov: feature.properties.impacted,
+              status: feature.properties.status
+            });
+
+          }
+        }
+      );
+
+      geojsonLayer.addTo(map);
+      console.log(list);
+
+      $(".tanggal").html("tanggal " + besok);
+    }
+
+    init_map();
+  </script>
+</body>
+
 </html>
