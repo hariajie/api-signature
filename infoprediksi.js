@@ -6,7 +6,7 @@ function init_map() {
   //Siapin variable besok
   let date = new Date();
   // Add a day
-  let besok = date.setDate(date.getDate());
+  let besok = date.setDate(date.getDate() + 1);
   let tgl_besok = date.toISOString().split("T")[0];
   besok = tgl_besok + "T00:00:00.000Z";
   let geojsonLayer;
