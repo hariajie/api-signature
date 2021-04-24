@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Bongkar API BMKG-Signature</title>
+  <title>Info Prediksi Cuaca Harian</title>
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,32 +14,73 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/css/bootstrap.min.css"
     integrity="sha512-aqT9YD5gLuLBr6ipQAS+72o5yHKzgZbGxEh6iY8lW/r6gG14e2kBTAJb8XrxzZrMOgSmDqtLaF76T0Z6YY2IHg=="
     crossorigin="anonymous" />
+
+  <style>
+    .awas {
+      background-color: #ff936b;
+    }
+
+    .siaga {
+      background-color: #f7c648;
+    }
+
+    .waspada {
+      background-color: #fff373;
+    }
+
+    .bg-navy {
+      background-color: #000080;
+    }
+
+    .navbar.navbar-dark {
+      margin-right: 0;
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: red;
+      color: white;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
   <div class="row">
-    <div class="col-md-3">
-      <div class="container-fluid mt-4">
-        <div class="d-flex flex-column position-relative bd-highlight">
-          <div class="bd-highlight">
-            <h4>Info Prediksi Cuaca Harian</h4>
-            <hr />
-            <div class="alert alert-info">
+    <div class="col-md-3 col-sm-12 ml-0">
+      <nav class="col-12 navbar navbar-dark bg-navy shadow">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Info Prediksi Cuaca Harian</a>
+        </div>
+      </nav>
+
+      <div class="container-fluid mt-4 mb-4">
+        <div class="justify-content-center">
+          <div class="col-12 bd-highlight">
+
+            <div class="alert alert-info mt-4">
               Info Prediksi Cuaca Harian ini berlaku untuk <span class="tanggal"></span>
             </div>
           </div>
-          <div class="bottom-0 bd-highlight">
-            Provinsi Terdampak
-            <div class="card bg-success">
-              <div class="card-body prov-list">
-
-              </div>
+          <div class="col-12 bd-highlight mt-5">
+            <h5>Provinsi Terdampak Hujan Lebat</h5>
+            <hr />
+            <div class="prov-list text-center">
+              <img id="loading" src="loading.gif" style="display:none; height: 100px; width:100px" />
             </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="d-flex justify-content-between">
+            <img src="Logo-BMKG.png" class="" width="20%" /><img src="pupr-sigap.png" width="70%" />
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 col-sm-12">
       <div id="mapid" style="height: 98vh; width: 100%"></div>
     </div>
   </div>
@@ -61,81 +102,11 @@
 
   <script src="./leaflet/leaflet.ajax.min.js"></script>
   <script src="./leaflet/leaflet.provider.js"></script>
+  <script src="./tanggal.js"></script>
 
-  <script>
-    function init_map() {
-      let map = L.map("mapid").setView([-1.2828926, 119.1433416], 5);
+  <!-- Yang paling penting -->
+  <script src="./infoprediksi.js"></script>
 
-      //Siapin variable besok
-      let date = new Date();
-      // Add a day
-      let besok = date.setDate(date.getDate() + 1);
-      besok = date.toISOString().split('T')[0] + "T00:00:00.000Z";
-
-      let list = [];
-
-
-      L.tileLayer.provider("Stadia.AlidadeSmoothDark").addTo(map);
-
-      function setWarna(cat) {
-        let warna, style;
-        cat = parseInt(cat);
-        //console.log("Cate :" + cat)
-
-        if (cat == 10) {
-          warna = "#db0000";
-        } else if (cat > 5) {
-          warna = "#f09835";
-        } else if (cat > 0) {
-          warna = "#fff157";
-        }
-
-        // console.log(warna);
-
-        style = {
-          color: warna,
-          weight: 0,
-          opacity: 0.7,
-          fillOpacity: 0.7,
-        };
-
-        return style;
-      }
-
-      var geojsonLayer = new L.GeoJSON.AJAX(
-        "http://localhost/api-signature/api_signature.php?tgl=" + besok,
-        {
-          style: function (feature) {
-            let category = feature.properties.category;
-            return setWarna(category);
-          },
-          onEachFeature: function (feature, layer) {
-            let html = layer.bindPopup(
-              "<pre>" +
-              JSON.stringify(feature.properties, null, " ").replace(
-                /[\{\}"]/g,
-                ""
-              ) +
-              "</pre>"
-            );
-
-            list.push({
-              prov: feature.properties.impacted,
-              status: feature.properties.status
-            });
-
-          }
-        }
-      );
-
-      geojsonLayer.addTo(map);
-      console.log(list);
-
-      $(".tanggal").html("tanggal " + besok);
-    }
-
-    init_map();
-  </script>
 </body>
 
 </html>
