@@ -1,7 +1,10 @@
 let table = {};
 
 function init_map() {
-  let map = L.map("mapid").setView([-1.2828926, 119.1433416], 5);
+  let map = L.map("mapid", { minZoom: 5 }).setView(
+    [-1.2828926, 119.1433416],
+    5
+  );
 
   //Siapin variable besok
   let date = new Date();
@@ -14,7 +17,7 @@ function init_map() {
   L.tileLayer.provider("GoogleHybrid").addTo(map);
 
   $.ajax({
-    url: "http://localhost/api-signature/api_signature.php?tgl=" + besok,
+    url: "https://localhost/api-signature/api_signature.php?tgl=" + besok,
     method: "GET",
     dataType: "json",
     beforeSend: function () {
@@ -65,7 +68,6 @@ function init_map() {
             prov: tmp,
             status: feature.properties.status,
           };
-          console.log(tmp);
 
           let sta;
           if (list.status == "Awas") {
@@ -76,7 +78,10 @@ function init_map() {
             sta = "<span class='badge waspada text-dark'>Waspada</span>";
           }
 
-          let content = "<div class='fs-6'>Status : " + sta + "<br><br>";
+          let content =
+            "<div class='fs-6'><b>Status :<b></b> " + sta + "<br><br>";
+          content +=
+            "<span class='fs-6 fw-light'><b>Wilayah Terdampak</b></span>";
           content +=
             "<table class='table table-sm table-responsive table-bordered'>";
           content += "<thead class='bg-info fw-bold'>";

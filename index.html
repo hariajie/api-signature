@@ -16,6 +16,12 @@
     crossorigin="anonymous" />
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+    body {
+      font-family: 'PT Sans', sans-serif;
+    }
+
     .awas {
       background-color: #ff936b;
     }
@@ -50,16 +56,14 @@
 
 <body>
   <div class="row">
-    <nav class="col-12 navbar sticky-top navbar-dark bg-navy shadow">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Info Prediksi Cuaca Harian</a>
+    <div class="col-md-3 col-sm-12">
+      <div class="row">
+        <nav class="col-12 navbar sticky-top navbar-dark bg-navy shadow">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Info Prediksi Cuaca Harian</a>
+          </div>
+        </nav>
       </div>
-    </nav>
-  </div>
-
-  <div class="row">
-    <div class="col-md-3 col-sm-12 ml-0">
-
       <div class="container mt-4 mb-4">
         <div class="justify-content-center">
           <div class="col-12 bd-highlight">
@@ -83,8 +87,8 @@
         </div>
       </div>
     </div>
-    <div class="col-md-9 col-sm-12">
-      <div id="mapid" style="height: 92.4vh; width: 100%"></div>
+    <div class="col-md-9 col-sm-12 g-0">
+      <div id="mapid" style="height: 98vh; width: 100%"></div>
     </div>
   </div>
 
